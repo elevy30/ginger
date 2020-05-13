@@ -130,3 +130,5 @@ dmypy.json
 
 .idea/
 
+helm/chart/spark/spark-2.4.5/
+
