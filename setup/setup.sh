@@ -28,7 +28,7 @@ fi
 popd > /dev/null
 ##################################################
 
-chmod 777 -R /home/elevy/.oh-my-zsh/plugins
+sudo chmod 777 -R /home/elevy/.oh-my-zsh/plugins
 AUTO_SUGGEST=~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 if [ ! -d "$AUTO_SUGGEST" ]; then
   echo "$AUTO_SUGGEST not exist"

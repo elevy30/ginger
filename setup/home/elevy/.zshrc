@@ -102,7 +102,7 @@ alias python=python3
 
 export DOCKER_HOST=tcp://localhost:2375
 
-cd /opt/dev/k8s
+cd /opt/dev/ginger
 
 source ~/.k8s
 source ~/.oh-my-zsh/plugins/git-prompt/git-prompt.plugin.zsh
