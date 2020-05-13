@@ -8,8 +8,8 @@ Spark:
 
 Master:
   Name: master
-  Image: "k8s.gcr.io/spark"
-  ImageTag: "1.5.1_v3"
+  Image: "registry.local:5000/spark"
+  ImageTag: "2.4.5"
   Replicas: 1
   Component: "spark-master"
   Cpu: 0.1
@@ -27,8 +27,8 @@ WebUi:
 
 Worker:
   Name: worker
-  Image: "k8s.gcr.io/spark"
-  ImageTag: "1.5.1_v3"
+  Image: "registry.local:5000/spark"
+  ImageTag: "2.4.5"
   Replicas: 3
   Component: "spark-worker"
   Cpu: 0.1
