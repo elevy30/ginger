@@ -1,6 +1,7 @@
 custom: {}
 
 hub:
+  name: hub
   service:
     type: ClusterIP
     annotations: {}
@@ -8,10 +9,11 @@ hub:
       nodePort:
     loadBalancerIP:
   baseUrl: /
-  cookieSecret:
+  cookieSecret: "82d45f60c5ff86c57e884c32568513e5fa2ffa0672f2a7ca43111620e6988586"
   publicURL:
   initContainers: []
   uid: 1000
+
   fsGid: 1000
   nodeSelector: {}
   concurrentSpawnLimit: 64
@@ -42,19 +44,19 @@ hub:
   annotations: {}
   extraConfig: {}
   extraConfigMap: {}
-  extraEnv: {}
+  extraEnv: {PROXY_API_SERVICE_HOST: "ginger-jupyter-proxy-api", PROXY_API_SERVICE_PORT: "8001", PROXY_PUBLIC_SERVICE_HOST: "ginger-jupyter-proxy-public", PROXY_PUBLIC_SERVICE_PORT: "80", HUB_SERVICE_HOST: "ginger-jupyter-hub", HUB_SERVICE_PORT: "8081" }
   extraContainers: []
   extraVolumes: []
   extraVolumeMounts: []
   image:
     name: jupyterhub/k8s-hub
-    tag: 'set-by-chartpress'
+    tag: 0.9.0
     # pullSecrets:
     #   - secretName
   resources:
     requests:
-      cpu: 200m
-      memory: 512Mi
+      cpu: 0.1
+      memory: 128M
   services: {}
   imagePullSecret:
     enabled: false
@@ -94,7 +96,11 @@ rbac:
 
 
 proxy:
-  secretToken: ''
+  api:
+    name: proxy-api
+  public:
+    name: proxy-public
+  secretToken: "7bba25bd971b40bafe20cf1ee84aff4f4440236beeb8cbfce7b8f57ab119fd87"
   deploymentStrategy:
     ## type: Recreate
     ## - JupyterHub's interaction with the CHP proxy becomes a lot more robust
@@ -144,8 +150,8 @@ proxy:
       periodSeconds: 10
     resources:
       requests:
-        cpu: 200m
-        memory: 512Mi
+        cpu: 0.1
+        memory: 128M
   traefik:
     image:
       name: traefik
@@ -208,7 +214,7 @@ auth:
     user: {}
   state:
     enabled: false
-    cryptoKey:
+    cryptoKey: "ead25b937b5e2585de8de3c7e7095e973805b2d58f07af4b9c43612213f9838b"
 
 
 singleuser:
@@ -257,7 +263,7 @@ singleuser:
     extraVolumes: []
     extraVolumeMounts: []
     static:
-      pvcName:
+      pvcName: 'local-path'
       subPath: '{username}'
     capacity: 10Gi
     homeMountPath: /home/jovyan
@@ -295,7 +301,7 @@ singleuser:
 
 scheduling:
   userScheduler:
-    enabled: true
+    enabled: false
     replicas: 2
     logLevel: 4
     ## policy:
@@ -336,12 +342,12 @@ scheduling:
 
 prePuller:
   hook:
-    enabled: true
+    enabled: false
     image:
       name: jupyterhub/k8s-image-awaiter
       tag: 'set-by-chartpress'
   continuous:
-    enabled: true
+    enabled: false
   extraImages: {}
   pause:
     image:

@@ -1,5 +1,0 @@
-helm install --name ginger-spark spark
-
-helm uninstall ginger-spark
-
-k port-forward  services/ginger-spark-webui   8080:8080

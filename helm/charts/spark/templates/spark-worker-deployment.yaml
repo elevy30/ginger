@@ -41,9 +41,3 @@ spec:
             value: {{ default "1g" .Values.Worker.ExecutorMemory | quote }}
           - name: SPARK_WORKER_WEBUI_PORT
             value: {{ .Values.WebUi.ContainerPort | quote }}
-          volumeMounts:
-            - name: spark-logs
-              mountPath: /opt/spark/logs/
-      volumns:
-        - name: spark-logs
-          emptyDir: {}

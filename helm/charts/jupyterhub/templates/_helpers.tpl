@@ -267,3 +267,18 @@ limits:
   {{- end }}
 {{- end }}
 {{- end }}
+
+{{- define "proxy-api" -}}
+{{- $name := default .Chart.Name .Values.proxy.api.name -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "proxy-public" -}}
+{{- $name := default .Chart.Name .Values.proxy.public.name -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "hub" -}}
+{{- $name := default .Chart.Name .Values.hub.name -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

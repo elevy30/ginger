@@ -8,36 +8,36 @@ Spark:
 
 Master:
   Name: master
-  Image: "registry.local:5000/spark"
-  ImageTag: "2.4.5"
+  Image: "mcr.microsoft.com/mmlspark/spark2.4"
+  ImageTag: "v4"
   Replicas: 1
   Component: "spark-master"
   Cpu: 0.1
-  Memory: 128M
+  Memory: 256M
   ServicePort: 7077
   ContainerPort: 7077
   # Set Master JVM memory. Default 1g
-  DaemonMemory: 512M
+  DaemonMemory: 256M
   ServiceType: LoadBalancer
 
 WebUi:
   Name: webui
-  ServicePort: 8080
-  ContainerPort: 8080
+  ServicePort: 8088
+  ContainerPort: 8088
 
 Worker:
   Name: worker
-  Image: "registry.local:5000/spark"
-  ImageTag: "2.4.5"
+  Image: "mcr.microsoft.com/mmlspark/spark2.4"
+  ImageTag: "v4"
   Replicas: 3
   Component: "spark-worker"
   Cpu: 0.1
-  Memory: 128M
+  Memory: 256M
   ContainerPort: 8081
   # Set Worker JVM memory. Default 1g
-  DaemonMemory: 512M
+  DaemonMemory: 256M
   # Set how much total memory workers have to give executors
-  ExecutorMemory: 64M
+  ExecutorMemory: 256M
   Autoscaling:
     Enabled: false
   ReplicasMax: 10
@@ -49,10 +49,12 @@ Zeppelin:
   ImageTag: "0.7.3"
   Replicas: 1
   Component: "zeppelin"
-  Cpu: 100m
+  Cpu: 0.1
   ServicePort: 8080
   ContainerPort: 8080
   ServiceType: LoadBalancer
+  Username: "admin"
+  Password: "admin
   Ingress:
     Enabled: false
     Path: "/"
@@ -82,11 +84,11 @@ Zeppelin:
       ## GKE, AWS & OpenStack)
       StorageClass: "-"
       ## Set default PVC size
-      Size: 128M
+      Size: 1G
       ## Set default PVC access mode: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
       AccessMode: ReadWriteOnce
     Notebook:
       Enabled: false
       StorageClass: "-"
-      Size: 128M
+      Size: 1G
       AccessMode: ReadWriteOnce
