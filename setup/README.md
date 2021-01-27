@@ -66,3 +66,6 @@ depends_on:
 https://medium.com/swlh/set-up-docker-registry-and-a-docker-regui-8340bb287276
 
 ---
+
+
+kubectl get event

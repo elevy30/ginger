@@ -1,0 +1,52 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: zeppelin-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zeppelin
+  template:
+    metadata:
+      labels:
+        app: zeppelin
+    spec:
+      containers:
+        - name: zeppelin
+          image: registry.local:5000/zeppelin:0.9.0
+          imagePullPolicy: Always
+#          command: ["sh", "-c", "$(ZEPPELIN_HOME)/bin/zeppelin.sh"]
+#          lifecycle:
+#            preStop:
+#              exec:
+#                # SIGTERM triggers a quick exit; gracefully terminate instead
+#                command: [ "sh", "-c", "ps -ef | grep org.apache.zeppelin.server.ZeppelinServer | grep -v grep | awk '{print $2}' | xargs kill" ]
+          ports:
+            - name: http
+              containerPort: 8081
+            - name: https
+              containerPort: 8443
+            - name: rpc
+              containerPort: 12320
+          envFrom:
+            - configMapRef:
+                name: zeppelin-server-conf-map
+          resources:
+            requests:
+              cpu: 100m
+          volumeMounts:
+            - name: zeppelin-notebook-volume     # configure this to persist notebook
+              mountPath: /zeppelin/notebook
+            - name: zeppelin-data-volume          # configure this to mount data csv
+              mountPath: /zeppelin/data
+      volumes:
+        - name: zeppelin-notebook-volume
+          hostPath:
+            path: /volume/zeppelin/notebook
+            type: Directory
+        - name: zeppelin-data-volume
+          hostPath:
+            path: /volume/zeppelin/data
+            type: Directory
+

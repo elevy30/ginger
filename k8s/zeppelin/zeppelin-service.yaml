@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: zeppelin
+spec:
+  type: NodePort
+  selector:
+    app: zeppelin
+  ports:
+    - name: ui
+      nodePort: 31081
+      port: 8081
+      targetPort: 8081
+

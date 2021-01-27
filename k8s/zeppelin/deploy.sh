@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 #set -v
-
 ##################################################
 pushd `dirname "$0"` > /dev/null
 
-cd ../spark-hdfs/spark-container
-docker build . -t spark:2.4.4
-docker push registry.local:5000/spark:2.4.4
+kubectl apply -f zeppelin-configmap.yaml
+kubectl apply -f zeppelin-deployment.yaml
+kubectl apply -f zeppelin-service.yaml
 
 ##################################################
 set +x

@@ -1,0 +1,15 @@
+version: '3'
+services:
+
+#############################################
+#               ZEPPELIN                    #
+#############################################
+  zeppelin-standalone:
+    image: apache/zeppelin:0.9.0
+    ports:
+      - "8180:8080"
+      - "4140:4040"
+    volumes:
+      - "../../_volumes/zeppelin/notebook:/zeppelin/notebook"
+      - "../../_volumes/zeppelin/data:/zeppelin/data"
+

@@ -37,7 +37,7 @@ function create_k3d_cluster() {
     sudo chmod 777 -R ~/k3d
 
     #	k3d cluster delete ginger
-	  k3d --verbose cluster create ginger --api-port 6550 -p "30000-32767:30000-32767@server[0]"  --agents 2 --registry-config "/home/elevy/k3d/registries.yaml" --network ginger-network
+	  k3d --verbose cluster create ginger --api-port 6550 -p "30000-32767:30000-32767@server[0]"  --agents 2 --registry-config "/home/elevy/k3d/registries.yaml" --network ginger-network --volume /opt/dev/ginger/_volume:/volume
 
 	  #### -l "add-host=host.docker.internal:172.17.0.1@server[0]"
 

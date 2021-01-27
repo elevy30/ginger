@@ -26,7 +26,7 @@ spec:
       nodePort: 31080
       port: 8080
       targetPort: 8080
-    - name: job1
+    - name: job-1
       nodePort: 31040
       port: 4040
       targetPort: 4040
