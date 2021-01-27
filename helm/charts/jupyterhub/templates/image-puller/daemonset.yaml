@@ -11,7 +11,7 @@ deleted. Only then will the actual helm upgrade start.
 ---
 {{- /*
 The continuous-image-puller daemonset task is to pull required images to nodes
-that are added in between helm upgrades, for example by manually adding a node
+that are added in between helm upgrades, for example by manually adding docker-compose.yaml node
 or by the cluster autoscaler.
 */}}
 {{- if .Values.prePuller.continuous.enabled }}

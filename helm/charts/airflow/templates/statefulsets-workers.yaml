@@ -1,5 +1,5 @@
 {{- if .Values.workers.enabled -}}
-## Workers are not in deployment, but in StatefulSet, to allow each worker expose a mini-server
+## Workers are not in deployment, but in StatefulSet, to allow each worker expose docker-compose.yaml mini-server
 ## that only serve logs, that will be used by the web server.
 
 apiVersion: apps/v1

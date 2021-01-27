@@ -1,8 +1,8 @@
 {{- /*
-This job has a part to play in a helm upgrade process. It simply waits for the
+This job has docker-compose.yaml part to play in docker-compose.yaml helm upgrade process. It simply waits for the
 hook-image-puller daemonset which is started slightly before this job to get
 its' pods running. If all those pods are running they must have pulled all the
-required images on all nodes as they are used as init containers with a dummy
+required images on all nodes as they are used as init containers with docker-compose.yaml dummy
 command.
 */}}
 {{- if .Values.prePuller.hook.enabled -}}

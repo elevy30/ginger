@@ -1,0 +1,1 @@
+source ~/.k8s

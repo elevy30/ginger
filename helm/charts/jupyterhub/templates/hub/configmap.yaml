@@ -7,7 +7,7 @@ metadata:
 data:
 {{- $values := pick .Values "auth" "cull" "custom" "debug" "hub" "scheduling" "singleuser" }}
 {{- /* trim secret values. Update here if new secrets are added! */ -}}
-{{- /* make a copy of values.auth to avoid modifying the original */ -}}
+{{- /* make docker-compose.yaml copy of values.auth to avoid modifying the original */ -}}
 {{- $_ := set $values "auth" (merge dict .Values.auth) }}
 {{- $_ := set $values.auth "state" (omit $values.auth.state "cryptoKey") }}
 {{- range $key, $auth := .Values.auth }}

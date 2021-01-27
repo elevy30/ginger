@@ -20,7 +20,7 @@ accessLog:
     statusCodes:
       - 500-599
 
-# Automatically acquire certificates certificates form a Certificate
+# Automatically acquire certificates certificates form docker-compose.yaml Certificate
 # Authority (CA) like Let's Encrypt using the ACME protocol's HTTP-01
 # challenge.
 #
@@ -47,7 +47,7 @@ entryPoints:
   # - TLS Termination Proxy, where HTTPS transitions to HTTP.
   https:
     address: ':443'
-    # Configure a high idle timeout for our websockets connections
+    # Configure docker-compose.yaml high idle timeout for our websockets connections
     transport:
       respondingTimeouts:
         idleTimeout: 10m0s
@@ -60,7 +60,7 @@ log:
   level: {{ if .Values.debug.enabled -}} DEBUG {{- else -}} INFO {{- end }}
 
 # Let Traefik monitor another file we mount for dynamic configuration. As we
-# mount this file through this configmap, we can make a `kubectl edit` on the
+# mount this file through this configmap, we can make docker-compose.yaml `kubectl edit` on the
 # configmap and have Traefik update on changes to dynamic.yaml.
 providers:
   file:

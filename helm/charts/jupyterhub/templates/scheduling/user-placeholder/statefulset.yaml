@@ -1,6 +1,6 @@
 
 {{- /*
-These user-placeholder pods can be used to test cluster autoscaling in a
+These user-placeholder pods can be used to test cluster autoscaling in docker-compose.yaml
 controlled fashion.
 
 Example:

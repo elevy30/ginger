@@ -1,70 +1,48 @@
-#!/usr/bin/env zsh
+#!/bin/bash
+##################################################
+# print each command before running it
 #set -v
+#set -x
 
+# this declared that the current user is docker-compose.yaml sudoer
+PASSWORD=elevy
+# echo $PASSWORD | sudo tee /etc/sudoer.d/$USER <<END
+# END
 ##################################################
-pushd `dirname "$0"` > /dev/null
-
-mkdir -p /opt/dev
-cd /opt/dev
-ln -sfn /mnt/d/dev/git-hub/ginger /opt/dev/ginger
-
-HELM=/usr/local/bin/helm
-if [ ! -f "$HELM" ]; then
-    echo "$HELM not exist"
-    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-    chmod 700 get_helm.sh
-    /opt/dev/helm/get_helm.sh
-fi
-
-K9S=/usr/local/bin/k9s
-if [ ! -f "$K9S" ]; then
-    echo "$K9S not exist"
-    wget  https://github.com/derailed/k9s/releases/download/v0.19.4/k9s_Linux_x86_64.tar.gz
-    tar xvzf k9s_Linux_x86_64.tar.gz
-    rm -rf LICENSE README.md k9s_*
-    sudo mv k9s /usr/local/bin/
-fi
-
-popd > /dev/null
+pushd "$(dirname "$0")" >/dev/null || exit
 ##################################################
 
-sudo chmod 777 -R /home/elevy/.oh-my-zsh/plugins
-AUTO_SUGGEST=~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-if [ ! -d "$AUTO_SUGGEST" ]; then
-  echo "$AUTO_SUGGEST not exist"
-  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-fi
+#ROOT = /opt/dev/dotfiles/01_new_laptop
+SETUP_FOLDER=$(pwd)
+echo "SETUP_FOLDER=${SETUP_FOLDER}"
 
-sudo cp -rf /opt/dev/ginger/setup/home/elevy/.oh-my-zsh/plugins/git-prompt/git-prompt.plugin.zsh /home/elevy/.oh-my-zsh/plugins/git-prompt
-sudo chmod 755 /home/elevy/.oh-my-zsh/plugins
-sudo chmod 755 /home/elevy/.oh-my-zsh/plugins/git
-sudo chmod 755 /home/elevy/.oh-my-zsh/plugins/git-prompt
-sudo chmod 755 /home/elevy/.oh-my-zsh/plugins/git-prompt/gitstatus.py
+source "${SETUP_FOLDER}/util.sh"
+source "${SETUP_FOLDER}/docker/setup_docker.sh"
+source "${SETUP_FOLDER}/kubectl/setup_kubectl.sh"
+source "${SETUP_FOLDER}/k8s/setup_k8s_k3d.sh"
+source "${SETUP_FOLDER}/k8s/setup_k9s.sh"
+source "${SETUP_FOLDER}/helm/setup_helm.sh"
+##################################################
 
-sudo cp -rf /opt/dev/ginger/setup/home/elevy/.k8s  /home/elevy
-sudo cp -rf /opt/dev/ginger/setup/home/elevy/.profile  /home/elevy
-sudo cp -rf /opt/dev/ginger/setup/home/elevy/.zshrc  /home/elevy
-
-sudo cp -rf /opt/dev/ginger/setup/home/elevy/.k9s/config.yml  /home/.k9s
-sudo cp -rf /opt/dev/ginger/setup/home/elevy/.k9s/hotkey.yml  /home/.k9s
-
-sudo cp -rf /opt/dev/ginger/setup/usr/local/bin/k3d  /usr/local/bin
-sudo cp -rf /opt/dev/ginger/setup/usr/local/bin/kubectl  /usr/local/bin
-sudo cp -rf /opt/dev/ginger/setup/usr/local/bin/kubens  /usr/local/bin
+#ask docker_prune
+#ask remove_docker
+#ask add_docker_repository
+#ask install_docker
+#ask install_docker_compose
+#notinuse ask create_docker_local_registry
+#ask create_docker_compose_local_registry
 
 
-sudo chmod +x /usr/local/bin/k3d
-sudo chmod +x /usr/local/bin/kubectl
-sudo chmod +x /usr/local/bin/kubens
+#ask install_kubectl
+#ask install_k3d
+ask create_k3d_cluster
+ask install_nginx
+#ask install_k9s
+#ask install_helm
+#ask copy_my_k8s_file
 
+##################################################
+set +x
+popd >/dev/null || exit
+##################################################
 
-
-
-
-
-#k3d create --enable-registry --server-arg "--no-deploy=traefik"
-kubectl create namespace local
-
-kubectl config get-contexts
-kubectl cluster-info
-kubectl get pods --all-namespaces

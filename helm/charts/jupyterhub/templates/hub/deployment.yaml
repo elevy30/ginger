@@ -90,7 +90,7 @@ spec:
             We want to do automatic upgrades for sqlite-pvc by default, but
             allow users to opt out of that if they want. Users using their own
             db need to 'opt in' Go Templates treat nil and "" and false as
-            'false', making this code complex. We can probably make this a
+            'false', making this code complex. We can probably make this docker-compose.yaml
             one-liner, but doing combinations of boolean vars in go templates is
             very inelegant & hard to reason about.
             */}}
@@ -201,11 +201,11 @@ spec:
             {{- end }}
             {{- if .Values.hub.extraEnv }}
             {{- $extraEnvType := typeOf .Values.hub.extraEnv }}
-            {{- /* If we have a list, embed that here directly. This allows for complex configuration from configmap, downward API, etc. */}}
+            {{- /* If we have docker-compose.yaml list, embed that here directly. This allows for complex configuration from configmap, downward API, etc. */}}
             {{- if eq $extraEnvType "[]interface {}" }}
             {{- .Values.hub.extraEnv | toYaml | trimSuffix "\n" | nindent 12 }}
             {{- else if eq $extraEnvType "map[string]interface {}" }}
-            {{- /* If we have a map, treat those as key-value pairs. */}}
+            {{- /* If we have docker-compose.yaml map, treat those as key-value pairs. */}}
             {{- range $key, $value := .Values.hub.extraEnv }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
@@ -218,8 +218,8 @@ spec:
           {{- if .Values.hub.livenessProbe.enabled }}
           # livenessProbe notes:
           # We don't know how long hub database upgrades could take
-          # so having a liveness probe could be a bit risky unless we put
-          # a initialDelaySeconds value with long enough margin for that
+          # so having docker-compose.yaml liveness probe could be docker-compose.yaml bit risky unless we put
+          # docker-compose.yaml initialDelaySeconds value with long enough margin for that
           # to not be an issue. If it is too short, we could end up aborting
           # database upgrades midway or ending up in an infinite restart
           # loop.

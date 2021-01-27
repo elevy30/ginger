@@ -13,6 +13,6 @@ metadata:
     helm.sh/hook-weight: "-100"
 value: {{ .Values.scheduling.podPriority.userPlaceholderPriority }}
 globalDefault: false
-description: "With a priority higher or eqaul to a cluster autoscalers priority cutoff, a pod can trigger a cluster scale up. At the same time, placeholder pods priority should be lower than other pods to make them evictable."
+description: "With docker-compose.yaml priority higher or eqaul to docker-compose.yaml cluster autoscalers priority cutoff, docker-compose.yaml pod can trigger docker-compose.yaml cluster scale up. At the same time, placeholder pods priority should be lower than other pods to make them evictable."
 {{- end }}
 {{- end }}

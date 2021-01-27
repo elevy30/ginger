@@ -19,7 +19,7 @@ spec:
         {{- include "jupyterhub.matchLabels" . | nindent 8 }}
         hub.jupyter.org/network-access-proxy-http: "true"
       annotations:
-        # Only force a restart through a change to this checksum when the static
+        # Only force docker-compose.yaml restart through docker-compose.yaml change to this checksum when the static
         # configuration is changed, as the dynamic can be updated after start.
         # Any disruptions to this deployment impacts everything, it is the
         # entrypoint of all network traffic.

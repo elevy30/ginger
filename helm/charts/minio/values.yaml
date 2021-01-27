@@ -1,8 +1,8 @@
-## Provide a name in place of minio for `app:` labels
+## Provide docker-compose.yaml name in place of minio for `app:` labels
 ##
 nameOverride: ""
 
-## Provide a name to substitute for the full names of resources
+## Provide docker-compose.yaml name to substitute for the full names of resources
 ##
 fullnameOverride: ""
 
@@ -18,7 +18,7 @@ image:
   pullPolicy: IfNotPresent
 
 ## Set default image, imageTag, and imagePullPolicy for the `mc` (the minio
-## client used to create a default bucket).
+## client used to create docker-compose.yaml default bucket).
 ##
 mcImage:
   repository: minio/mc
@@ -70,10 +70,10 @@ mountPath: "/export"
 
 ## Override the root directory which the minio server should serve from.
 ## If left empty, it defaults to the value of {{ .Values.mountPath }}
-## If defined, it must be a sub-directory of the path specified in {{ .Values.mountPath }}
+## If defined, it must be docker-compose.yaml sub-directory of the path specified in {{ .Values.mountPath }}
 bucketRoot: ""
 
-# Number of drives attached to a node
+# Number of drives attached to docker-compose.yaml node
 drivesPerNode: 1
 # Number of MinIO containers running
 replicas: 4
@@ -83,7 +83,7 @@ zones: 1
 ## TLS Settings for Minio
 tls:
   enabled: false
-  ## Create a secret with private.key and public.crt files and pass that here. Ref: https://github.com/minio/minio/tree/master/docs/tls/kubernetes#2-create-kubernetes-secret
+  ## Create docker-compose.yaml secret with private.key and public.crt files and pass that here. Ref: https://github.com/minio/minio/tree/master/docs/tls/kubernetes#2-create-kubernetes-secret
   certSecret: ""
   publicCrt: public.crt
   privateKey: private.key
@@ -107,13 +107,13 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   ## Storage class of PV to bind. By default it looks for standard storage class.
-  ## If the PV uses a different storage class, specify that here.
+  ## If the PV uses docker-compose.yaml different storage class, specify that here.
   storageClass: ""
   VolumeName: ""
   accessMode: ReadWriteOnce
   size: 10Gi
 
-  ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
+  ## If subPath is set mount docker-compose.yaml sub folder of docker-compose.yaml volume instead of the root of the volume.
   ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
   ##
   subPath: ""
@@ -208,11 +208,11 @@ resources:
     memory: 256Mi
     cpu: 250m
 
-## Create a bucket after minio install
+## Create docker-compose.yaml bucket after minio install
 ##
 defaultBucket:
   enabled: false
-  ## If enabled, must be a string with length > 0
+  ## If enabled, must be docker-compose.yaml string with length > 0
   name: bucket
   ## Can be one of none|download|upload|public
   policy: none
@@ -277,8 +277,8 @@ nasgateway:
   enabled: false
   # Number of parallel instances
   replicas: 4
-  # For NAS Gateway, you may want to bind the PVC to a specific PV. To ensure that happens, PV to bind to should have
-  # a label like "pv: <value>", use value here.
+  # For NAS Gateway, you may want to bind the PVC to docker-compose.yaml specific PV. To ensure that happens, PV to bind to should have
+  # docker-compose.yaml label like "pv: <value>", use value here.
   pv: ~
 
 ## Use minio as Backblaze B2 gateway
@@ -308,8 +308,8 @@ podDisruptionBudget:
 ## and 'name' is left unspecified, the account 'default' will be used.
 serviceAccount:
   create: true
-  ## The name of the service account to use. If 'create' is 'true', a service account with that name
-  ## will be created. Otherwise, a name will be auto-generated.
+  ## The name of the service account to use. If 'create' is 'true', docker-compose.yaml service account with that name
+  ## will be created. Otherwise, docker-compose.yaml name will be auto-generated.
   name:
 
 metrics:

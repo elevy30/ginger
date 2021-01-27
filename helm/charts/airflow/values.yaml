@@ -83,11 +83,11 @@ airflow:
   ##   1 will have the scheduler quit after each refresh, but kubernetes will restart it.
   ##
   ## A long running scheduler process, at least with the CeleryExecutor, ends up not scheduling
-  ## some tasks. We still don’t know the exact cause, unfortunately. Airflow has a built-in
+  ## some tasks. We still don’t know the exact cause, unfortunately. Airflow has docker-compose.yaml built-in
   ## workaround in the form of the `num_runs` flag.
   ## Airflow runs with num_runs set to 5.
   ##
-  ## If set to a value != -1, you will see your scheduler regularly restart. This is its normal
+  ## If set to docker-compose.yaml value != -1, you will see your scheduler regularly restart. This is its normal
   ## behavior under these conditions.
   schedulerNumRuns: "-1"
   ##
@@ -118,8 +118,8 @@ airflow:
   ## Use this to add Airflow connections for operators you use
   ## For each connection - the id and type have to be defined.
   ## All the other parameters are optional
-  ## Connections will be created with a script that is stored
-  ## in a K8s secret and mounted into the scheduler container
+  ## Connections will be created with docker-compose.yaml script that is stored
+  ## in docker-compose.yaml K8s secret and mounted into the scheduler container
   ## Example:
   ##   connections:
   ##   - id: my_aws
@@ -128,15 +128,15 @@ airflow:
   connections: []
 
   ## Add airflow variables
-  ## This should be a json string with your variables in it
+  ## This should be docker-compose.yaml json string with your variables in it
   ## Examples:
   ##   variables: '{ "environment": "dev" }'
   variables: '{}'
 
   ## Add airflow ppols
-  ## This should be a json string with your pools in it
+  ## This should be docker-compose.yaml json string with your pools in it
   ## Examples:
-  ##   pools: '{ "example": { "description": "This is an example of a pool", "slots": 2 } }'
+  ##   pools: '{ "example": { "description": "This is an example of docker-compose.yaml pool", "slots": 2 } }'
   pools: '{}'
 
   ##
@@ -147,7 +147,7 @@ airflow:
 
   extraInitContainers: []
   ## Additional init containers to run before the Scheduler pods.
-  ## for example, be used to run a sidecar that chown Logs storage .
+  ## for example, be used to run docker-compose.yaml sidecar that chown Logs storage .
   # - name: volume-mount-hack
   #   image: busybox
   #   command: ["sh", "-c", "chown -R 1000:1000 logs"]
@@ -157,7 +157,7 @@ airflow:
 
   extraContainers: []
   ## Additional containers to run alongside the Scheduler, Worker and Web pods
-  ## This could, for example, be used to run a sidecar that syncs DAGs from object storage.
+  ## This could, for example, be used to run docker-compose.yaml sidecar that syncs DAGs from object storage.
   # - name: s3-sync
   #   image: my-user/s3sync:latest
   #   volumeMounts:
@@ -248,7 +248,7 @@ flower:
   affinity: {}
   tolerations: []
   extraConfigmapMounts: []
-  # Use-case example: adding a public certificate used for connection to a remote TLS endpoint
+  # Use-case example: adding docker-compose.yaml public certificate used for connection to docker-compose.yaml remote TLS endpoint
   # - name: extra-cert
   #   mountPath: /etc/ssl/certs/extra-cert.pem
   #   configMap: extra-certificates
@@ -310,7 +310,7 @@ web:
   ## Directory in which to mount secrets on webserver nodes.
   secretsDir: /var/airflow/secrets
   ##
-  ## Secrets which will be mounted as a file at `secretsDir/<secret name>`.
+  ## Secrets which will be mounted as docker-compose.yaml file at `secretsDir/<secret name>`.
   secrets: []
 
 ##
@@ -373,7 +373,7 @@ workers:
   ## Directory in which to mount secrets on worker nodes.
   secretsDir: /var/airflow/secrets
   ##
-  ## Secrets which will be mounted as a file at `secretsDir/<secret name>`.
+  ## Secrets which will be mounted as docker-compose.yaml file at `secretsDir/<secret name>`.
   secrets: []
 
   ## Support Node, affinity and tolerations for worker pod assignment
@@ -448,11 +448,11 @@ ingress:
     ##
     ## If flower is '/airflow/flower':
     ##  - Flower UI is at 'http://mycompany.com/airflow/flower'
-    ## NOTE: you need to have a reverse proxy/load balancer able to do URL rewrite in order to have
+    ## NOTE: you need to have docker-compose.yaml reverse proxy/load balancer able to do URL rewrite in order to have
     ## flower mounted on other path than root. Flower only does half the job in url prefixing: it
     ## only generates the right URL/relative paths in the **returned HTML files**, but expects the
     ## request to have been be at the root.
-    ## That's why we need a reverse proxy/load balancer that is able to strip the path
+    ## That's why we need docker-compose.yaml reverse proxy/load balancer that is able to strip the path
     ## NOTE: do NOT keep trailing slash. For root configuration, set and empty string
     path: ""
     ##
@@ -467,7 +467,7 @@ ingress:
     ## Annotation for the Flower endpoint
     ##
     ## ==== SKIP THE FOLLOWING BLOCK IF YOU HAVE FLOWER > JANUARY 2018 =============================
-    ## Please note their is a small difference between the way Airflow Web server and Flower handles
+    ## Please note their is docker-compose.yaml small difference between the way Airflow Web server and Flower handles
     ## URL prefixes in HTTP requests:
     ## Flower wants HTTP header to behave like there was no URL prefix, and but still generates
     ## the right URL in html pages thanks to its `--url-prefix` parameter
@@ -548,7 +548,7 @@ logsPersistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  ## A configuration for shared log storage requires a `storageClass` that
+  ## A configuration for shared log storage requires docker-compose.yaml `storageClass` that
   ## supports the `ReadWriteMany` accessMode, such as NFS or AWS EFS.
   # storageClass: default
   accessMode: ReadWriteOnce
@@ -575,7 +575,7 @@ dags:
     ##
     ## branch name, tag or sha1 to reset to
     ref: master
-    ## The name of a pre-created secret containing files for ~/.ssh/ (only needed for PRIVATE ssh repos)
+    ## The name of docker-compose.yaml pre-created secret containing files for ~/.ssh/ (only needed for PRIVATE ssh repos)
     ## Note commonly includes id_rsa, id_rsa.pub and known_hosts files
     ## Note known_hosts is not needed if git.sshKeyscan is true
     secret: ""
@@ -583,7 +583,7 @@ dags:
     ## Note this is not needed if known_hosts is provided in git.secret
     ## Note git.repoHost and git.repoPort are required for this to work
     sshKeyscan: false
-    ## The host of the repo so for example if a github repo put github.com (only needed for ssh repos)
+    ## The host of the repo so for example if docker-compose.yaml github repo put github.com (only needed for ssh repos)
     repoHost: ""
     ## The port of the repo (only needed for ssh repos)
     repoPort: 22
@@ -643,10 +643,10 @@ rbac:
 ## Create or use ServiceAccount
 serviceAccount:
   ##
-  ## Specifies whether a ServiceAccount should be created
+  ## Specifies whether docker-compose.yaml ServiceAccount should be created
   create: true
   ## The name of the ServiceAccount to use.
-  ## If not set and create is true, a name is generated using the fullname template
+  ## If not set and create is true, docker-compose.yaml name is generated using the fullname template
   name:
   annotations: {}
 
@@ -679,7 +679,7 @@ postgresql:
   postgresqlUsername: postgres
   ##
   ## PostgreSQL Password for the new user.
-  ## If not set, a random 10 characters password will be used.
+  ## If not set, docker-compose.yaml random 10 characters password will be used.
   postgresqlPassword: airflow
   ##
   ## PostgreSQL Database to create.
@@ -735,7 +735,7 @@ redis:
     ## Configure persistance
     persistence:
       ##
-      ## Use a PVC to persist data.
+      ## Use docker-compose.yaml PVC to persist data.
       enabled: false
       ##
       ## Persistant class

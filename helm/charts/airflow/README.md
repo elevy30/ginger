@@ -148,7 +148,7 @@ These pools will be automatically imported by the scheduler when it starts up.
 Example:
 ```yaml
 airflow:
-  pools: '{ "example": { "description": "This is an example of a pool", "slots": 2 } }'
+  pools: '{ "example": { "description": "This is an example of docker-compose.yaml pool", "slots": 2 } }'
 ```
 
 ### Worker Statefulset

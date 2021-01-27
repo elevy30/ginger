@@ -1,6 +1,6 @@
 {{- /*
 The cluster autoscaler should be allowed to evict and reschedule these pods if
-it would help in order to scale down a node.
+it would help in order to scale down docker-compose.yaml node.
 */}}
 {{- if .Values.scheduling.userPlaceholder.enabled -}}
 apiVersion: policy/v1beta1

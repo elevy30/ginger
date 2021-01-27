@@ -361,7 +361,7 @@ properties:
         description:
           The UID the hub process should be running as.
 
-          Use this only if you are building your own image & know that a user with this uid
+          Use this only if you are building your own image & know that docker-compose.yaml user with this uid
           exists inside the hub container! Advanced feature, handle with care!
 
           Defaults to 1000, which is the uid of the `jovyan` user that is present in the
@@ -372,7 +372,7 @@ properties:
         description:
           The gid the hub process should be using when touching any volumes mounted.
 
-          Use this only if you are building your own image & know that a group with this gid
+          Use this only if you are building your own image & know that docker-compose.yaml group with this gid
           exists inside the hub container! Advanced feature, handle with care!
 
           Defaults to 1000, which is the gid of the `jovyan` user that is present in the
