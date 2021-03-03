@@ -12,16 +12,19 @@ spec:
       labels:
         app: zeppelin
     spec:
+      serviceAccountName: zeppelin
       containers:
+
+
         - name: zeppelin
           image: registry.local:5000/zeppelin:0.9.0
           imagePullPolicy: Always
-#          command: ["sh", "-c", "$(ZEPPELIN_HOME)/bin/zeppelin.sh"]
-#          lifecycle:
-#            preStop:
-#              exec:
-#                # SIGTERM triggers a quick exit; gracefully terminate instead
-#                command: [ "sh", "-c", "ps -ef | grep org.apache.zeppelin.server.ZeppelinServer | grep -v grep | awk '{print $2}' | xargs kill" ]
+          command: ["sh", "-c", "$(ZEPPELIN_HOME)/bin/zeppelin.sh"]
+          lifecycle:
+            preStop:
+              exec:
+                # SIGTERM triggers a quick exit; gracefully terminate instead
+                command: [ "sh", "-c", "ps -ef | grep org.apache.zeppelin.server.ZeppelinServer | grep -v grep | awk '{print $2}' | xargs kill" ]
           ports:
             - name: http
               containerPort: 8081
@@ -29,6 +32,18 @@ spec:
               containerPort: 8443
             - name: rpc
               containerPort: 12320
+          #this 2 env effect the first page login or direct access
+          env:
+            - name: POD_UID
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.uid
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
           envFrom:
             - configMapRef:
                 name: zeppelin-server-conf-map
@@ -40,6 +55,44 @@ spec:
               mountPath: /zeppelin/notebook
             - name: zeppelin-data-volume          # configure this to mount data csv
               mountPath: /zeppelin/data
+
+
+#        - name: zeppelin-server-gateway
+#          image: nginx:1.14.0
+#          command: ["/bin/sh", "-c"]
+#          env:
+#            - name: SERVICE_DOMAIN
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: zeppelin-server-conf-map
+#                  key: SERVICE_DOMAIN
+#          args:
+#            - cp -f /tmp/conf/nginx.conf /etc/nginx/nginx.conf;
+#              sed -i -e "s/SERVICE_DOMAIN/$SERVICE_DOMAIN/g" /etc/nginx/nginx.conf;
+#              sed -i -e "s/NAMESPACE/$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)/g" /etc/nginx/nginx.conf;
+#              cat /etc/nginx/nginx.conf;
+#              /usr/sbin/nginx
+#          volumeMounts:
+#            - name: nginx-conf
+#              mountPath: /tmp/conf
+#          lifecycle:
+#            preStop:
+#              exec:
+#                # SIGTERM triggers a quick exit; gracefully terminate instead
+#                command: ["/usr/sbin/nginx", "-s", "quit"]
+
+
+#        - name: dnsmasq  # nginx requires dns resolver for dynamic dns resolution
+#          image: "janeczku/go-dnsmasq:release-1.0.5"
+#          args:
+#            - --listen
+#            - "127.0.0.1:53"
+#            - --default-resolver
+#            - --append-search-domains
+#            - --hostsfile=/etc/hosts
+#            - --verbose
+
+
       volumes:
         - name: zeppelin-notebook-volume
           hostPath:
@@ -49,4 +102,9 @@ spec:
           hostPath:
             path: /volume/zeppelin/data
             type: Directory
-
+        - name: nginx-conf
+          configMap:
+            name: zeppelin-server-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf

@@ -16,15 +16,19 @@ k8s playground
   - spark master: <span style="color:green">31077 -> 7077 -> 7077
   - spark job:    <span style="color:green">31040 -> 4040 -> 4040
 - zeppelin
-  - web application:  <span style="color:green">31180 -> 8180 -> 8080
-  - job:              <span style="color:green">31140 -> 4140 -> 4040
+  - web application:  <span style="color:green">31081 -> 8081 -> 8081
+  - job:              <span style="color:green">31041 -> 4041 -> 4041
 
 ###environment exposed url:
 - k8s api:            http://localhost:6550
-- docker registry ui: http://localhost:8086/containers
+- docker registry ui: http://localhost:8086/containers  
+  - curl -X GET http://registry.local:5000/v2/_catalog
+  - curl -X GET http://registry.local:5000/v2/spark/manifests/2.4.4
+  - curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X GET http://registry.local:5000/v2/spark/manifests/2.4.4 2>&1 | grep Docker-Content-Digest | awk '{print ($3)}'
+  - curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X DELETE http://registry.local:5000/v2/spark/manifests/sha256:b13e3923003620c5c2df00438f0288874663d8b64bd03003cf0dc1a2d367e4eb
 
-#curl -X GET https://registry.local:5000/v2/_catalog
-#curl -X GET http://registry.local:5000/v2/spark/manifests/2.4.4
+- spark ui:           http://localhost:31080
+- zeppelin:           http://localhost:31081
 
 ###help urls:
 - https://kubernetes:io/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/:

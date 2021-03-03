@@ -7,7 +7,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - "../../_volumes/docker_registry:/var/lib/registry"
+      - "../../../_volumes/docker_registry:/var/lib/registry"
     restart: always
     networks:
       - ginger-network
@@ -23,6 +23,7 @@ services:
       - SSL_VERIFY=false
       - USERNAME=admin
       - PASSWORD=mypassword
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
     restart: always
     networks:
       - ginger-network

@@ -10,6 +10,6 @@ services:
       - "8180:8080"
       - "4140:4040"
     volumes:
-      - "../../_volumes/zeppelin/notebook:/zeppelin/notebook"
-      - "../../_volumes/zeppelin/data:/zeppelin/data"
+      - "../../../_volume/zeppelin/notebook:/zeppelin/notebook"
+      - "../../../_volume/zeppelin/data:/zeppelin/data"
 
