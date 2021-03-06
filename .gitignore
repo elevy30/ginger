@@ -130,5 +130,5 @@ dmypy.json
 
 .idea/
 
-
-/helm/charts/spark/spark-2.4.5/
+/_volume/
+/dockers/zeppelin-0.10.0/zeppelin-server/docker/zeppelin-0.10.0-SNAPSHOT*
