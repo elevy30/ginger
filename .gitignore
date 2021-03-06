@@ -131,4 +131,5 @@ dmypy.json
 .idea/
 
 /_volume/
-/dockers/zeppelin-0.10.0/zeppelin-server/docker/zeppelin-0.10.0-SNAPSHOT*
+/dockers/zeppelin-0.10.0/zeppelin-server/docker/zeppelin-0.10.0-SNAPSHOT.tar.gz
+/dockers/zeppelin-0.10.0/zeppelin-server/docker/zeppelin-0.10.0-SNAPSHOT/
