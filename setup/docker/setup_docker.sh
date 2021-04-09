@@ -86,7 +86,7 @@ function create_docker_local_registry(){
   if [ -z "$(docker ps -q -f name=docker_registry_ui)" ]; then
     echo "---> Create Docker Registry UI..."
     docker run -d -p 8086:80 --name=docker_registry_ui \
-    -e REGISTRY_HOST=0.0.0.0 -e REGISTRY_PORT=443  -e REGISTRY_PROTOCOL=https  -e SSL_VERIFY=false -e ALLOW_REGISTRY_LOGIN=true -e REGISTRY_ALLOW_DELETE=true \
+    -e REGISTRY_HOST=0.0.0.0 -e REGISTRY_PORT=443  -e REGISTRY_PROTOCOL=https  -e SSL_VERIFY=false -e ALLOW_REGISTRY_LOGIN=true -e REGISTRY_ALLOW_DELETE=true -e REGISTRY_STORAGE_DELETE_ENABLED=true \
     parabuzzle/craneoperator:latest
   else
      echo "vvv Docker Registry UI already exist vvv"

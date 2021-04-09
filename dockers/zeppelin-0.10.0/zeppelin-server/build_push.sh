@@ -4,8 +4,9 @@
 ##################################################
 pushd `dirname "$0"` > /dev/null
 
-cd ./docker-compose
-docker-compose up
+cd ./docker
+docker build -t registry.local:5000/zeppelin-server:0.10.0 .
+docker push registry.local:5000/zeppelin-server:0.10.0
 
 ##################################################
 set +x

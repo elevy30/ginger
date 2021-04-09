@@ -7,10 +7,12 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - "../../../_volumes/docker_registry:/var/lib/registry"
+      - "../../../_volume/docker_registry:/var/lib/registry"
     restart: always
     networks:
       - ginger-network
+    environment:
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
   docker-registry-ui:
     image: parabuzzle/craneoperator:latest
     container_name: docker-registry-ui
@@ -23,7 +25,7 @@ services:
       - SSL_VERIFY=false
       - USERNAME=admin
       - PASSWORD=mypassword
-      - REGISTRY_STORAGE_DELETE_ENABLED=true
+      - REGISTRY_ALLOW_DELETE=true
     restart: always
     networks:
       - ginger-network

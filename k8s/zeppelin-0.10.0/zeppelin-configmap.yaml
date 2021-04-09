@@ -11,13 +11,11 @@ data:
   #
   # Default value is 'local.zeppelin-project.org' while it points 127.0.0.1 and `kubectl port-forward zeppelin-server` will give localhost to connects.
   # If you have your ingress controller configured to connect to `zeppelin-server` service and have a domain name for it (with wildcard subdomain point the same address), you can replace serviceDomain field with your own domain.
-  SERVICE_DOMAIN: local.zeppelin-project.org:8081
+  SERVICE_DOMAIN: local.zeppelin-project.org:8080
   ZEPPELIN_K8S_SPARK_CONTAINER_IMAGE: registry.local:5000/spark:2.4.4
-  ZEPPELIN_K8S_CONTAINER_IMAGE: registry.local:5000/zeppelin:0.9.0
+  ZEPPELIN_K8S_CONTAINER_IMAGE: registry.local:5000/zeppelin-interpreter:0.10.0
   ZEPPELIN_HOME: /opt/zeppelin
   ZEPPELIN_SERVER_RPC_PORTRANGE: 12320:12320
-  ZEPPELIN_PORT: "8081"
-  SPARK_DIST_CLASSPATH: $(/opt/hadoop/bin/hadoop classpath)
   # default value of 'master' property for spark interpreter.
   SPARK_MASTER: k8s://https://kubernetes.default.svc
   # default value of 'SPARK_HOME' property for spark interpreter.
@@ -43,7 +41,7 @@ data:
       server {
         listen 80;
         location / {
-          proxy_pass http://localhost:8081;
+          proxy_pass http://localhost:8080;
           proxy_set_header Host $host;
           proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
@@ -51,6 +49,7 @@ data:
           proxy_redirect http://localhost $scheme://SERVICE_DOMAIN;
         }
       }
+
       # match request domain [port]-[service].[serviceDomain]
       # proxy extra service such as spark-ui
       server {
@@ -64,9 +63,9 @@ data:
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
           proxy_redirect http://localhost $scheme://SERVICE_DOMAIN;
+
           # redirect rule for spark ui. 302 redirect response misses port number of service domain
           proxy_redirect ~(http:[/]+[0-9]+[-][^-]+[-][^.]+)[^/]+(\/jobs.*) $1.SERVICE_DOMAIN$2;
         }
       }
     }
-

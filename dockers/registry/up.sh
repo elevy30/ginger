@@ -5,7 +5,7 @@
 pushd `dirname "$0"` > /dev/null
 
 cd ./docker-compose
-docker-compose up
+docker-compose up &
 
 ##################################################
 set +x

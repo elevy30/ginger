@@ -12,4 +12,5 @@ services:
     volumes:
       - "../../../_volume/zeppelin/notebook:/zeppelin/notebook"
       - "../../../_volume/zeppelin/data:/zeppelin/data"
+      - "../../../_volume/zeppelin/log:/zeppelin/log"
 

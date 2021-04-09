@@ -4,8 +4,9 @@
 ##################################################
 pushd `dirname "$0"` > /dev/null
 
-cd ./docker-compose
-docker-compose up
+cd ./docker
+docker build . -t registry.local:5000/spark:2.4.4
+docker push registry.local:5000/spark:2.4.4
 
 ##################################################
 set +x
