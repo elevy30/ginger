@@ -35,11 +35,11 @@ source "${SETUP_FOLDER}/helm/setup_helm.sh"
 
 #ask install_kubectl
 #ask install_k3d
-ask create_k3d_cluster
-ask install_nginx
+#ask create_k3d_cluster
+#ask install_nginx
 #ask install_k9s
 #ask install_helm
-#ask copy_my_k8s_file
+ask copy_my_k8s_file
 
 ##################################################
 set +x

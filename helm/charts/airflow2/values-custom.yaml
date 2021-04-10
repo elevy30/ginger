@@ -1,0 +1,55 @@
+web:
+  service:
+    annotations: {}
+    sessionAffinity: "None"
+    sessionAffinityConfig: {}
+    type: NodePort
+    externalPort: 8080
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    nodePort:
+      http: "31082"
+
+###################################
+# Airflow - DAGs & Logs Configs
+###################################
+dags:
+  path: /opt/airflow/dags
+  persistence:
+#    enabled: true
+#    storageClass: local-path
+#    accessMode: ReadWriteOnce
+    size: 100Mi
+logs:
+  path: /opt/airflow/logs
+  persistence:
+    #    enabled: true
+    #    storageClass: local-path
+    #    accessMode: ReadWriteOnce
+    size: 100Mi
+
+
+
+airflow:
+  extraVolumeMounts:
+    - name: dags-volume
+      mountPath: /opt/airflow/dags
+#    - name: logs-volume
+#      mountPath: /opt/airflow/logs
+  extraVolumes:
+    - name: dags-volume
+      hostPath:
+        path: /volume/airflow/dags
+        type: Directory
+#    - name: logs-volume
+#      hostPath:
+#        path: /volume/airflow/logs
+#        type: Directory
+
+  config:
+    ## security
+    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+    AIRFLOW__CORE__LOAD_EXAMPLES: "True"
+#    AIRFLOW__CORE__DAGS_FOLDER: "/usr/local/airflow/dags"
+#    AIRFLOW__CORE__LOGS_FOLDER: "/usr/local/airflow/logs"
+

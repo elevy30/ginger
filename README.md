@@ -18,7 +18,8 @@ k8s playground
 - zeppelin
   - web application:  <span style="color:green">31081 -> 8081 -> 8081
   - job:              <span style="color:green">31041 -> 4041 -> 4041
-
+- airflow
+  - web application:  <span style="color:green">31082 -> 8080 -> 8080
 ###environment exposed url:
 - k8s api:            http://localhost:6550
 - docker registry ui: http://localhost:8086/containers  
@@ -29,6 +30,8 @@ k8s playground
 
 - spark ui:           http://localhost:31080
 - zeppelin:           http://localhost:31081
+- airflow             http://localhost:31082 admin/admin
 
 ###help urls:
 - https://kubernetes:io/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/:
+- https://github.com/tuanavu/airflow-tutorial
