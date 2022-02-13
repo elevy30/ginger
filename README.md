@@ -35,3 +35,4 @@ k8s playground
 ###help urls:
 - https://kubernetes:io/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/:
 - https://github.com/tuanavu/airflow-tutorial
+- https://github.com/airflow-helm/charts/tree/main/charts/airflow
